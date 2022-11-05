@@ -21,12 +21,6 @@ header {
     align-items: center;
 }
 
-h1 {
-    font-family: "Poor Story";
-    font-size: 48px;
-    margin: 0;
-}
-
 footer {
     height: 40px;
     display: flex;
@@ -43,6 +37,18 @@ h6 {
 
 a:visited {
     color: inherit;
+}
+
+.head-link {
+    text-decoration: none;
+    font-family: "Poor Story";
+    font-size: 48px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.head-link:visited {
+    color: #1f1f21;
 }
 
 .main-wrapper {
@@ -64,21 +70,42 @@ a:visited {
 
 .field {
     box-sizing: border-box;
+    font-size: 128px;
     border: 1px solid #1f1f21;
     width: 165px;
     height: 165px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.field.used {
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.field.not-used:hover {
+    background-color: #c4c4f3;
 }
 
 .reset-button {
     color: white;
     background-color: #1f1f21;
     font-size: 16px;
+    font-weight: bold;
     border: none;
     border-radius: 25px;
     width: 150px;
     height: 50px;
+    cursor: pointer;
 }
 
-.field.not-used:hover {
-    background-color: #c4c4f3;
+.reset-button:hover {
+    background-color: #383838;
+}
+
+.reset-button:active {
+    border: 3px solid rgb(22, 22, 22);
 }
