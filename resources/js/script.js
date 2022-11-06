@@ -1,6 +1,8 @@
-const Player = (sign) => {
+const Player = (sign, name = sign) => {
   const getSign = () => sign;
-  return { getSign };
+  const getName = () => name;
+  const changeName = (newName) => (name = newName);
+  return { getSign, getName, changeName };
 };
 
 const gameboard = (() => {
@@ -28,7 +30,7 @@ const gameController = (() => {
   const player2 = Player("O");
 
   let action = player1.getSign();
-  let status_msg = `${player1.getSign()} player turn`;
+  let status_msg = `${player1.getName()}'s turn`;
   let end = false;
 
   const isWin = (sign) => {
@@ -58,11 +60,11 @@ const gameController = (() => {
     let any = false;
     if (isWin(player1.getSign())) {
       end = true;
-      status_msg = `${player1.getSign()} player won`;
+      status_msg = `${player1.getName()} won`;
       return;
     } else if (isWin(player2.getSign())) {
       end = true;
-      status_msg = `${player2.getSign()} player won`;
+      status_msg = `${player2.getName()} won`;
       return;
     }
     for (let i = 0; i < 9; i++) {
@@ -74,7 +76,9 @@ const gameController = (() => {
       end = true;
       status_msg = "Tie";
     } else {
-      status_msg = `${action} player turn`;
+      status_msg = `${
+        player1.getSign() == action ? player1.getName() : player2.getName()
+      }'s turn`;
     }
   };
 
@@ -100,8 +104,18 @@ const gameController = (() => {
     gameboard.resetBoard();
     end = false;
     action = player1.getSign();
-    status_msg = `${player1.getSign()} player turn`;
+    status_msg = `${player1.getName()}'s turn`;
   };
+
+  const startBtn = document.querySelector(".start-button");
+  startBtn.addEventListener("click", () => {
+    const player1Input = document.getElementById("player-1");
+    const player2Input = document.getElementById("player-2");
+    player1.changeName(player1Input.value || "X");
+    player2.changeName(player2Input.value || "O");
+    updateStatus();
+  });
+
   return {
     getStatus,
     round,
@@ -111,6 +125,14 @@ const gameController = (() => {
 })();
 
 const displayController = (() => {
+  const startBtn = document.querySelector(".start-button");
+  const menu = document.querySelector(".menu");
+  const main = document.querySelector(".main-wrapper");
+  startBtn.addEventListener("click", () => {
+    menu.classList.add("disabled");
+    main.classList.remove("disabled");
+    updateStatus(gameController.getStatus());
+  });
   const fields = document.querySelectorAll(".field");
   const updateBoard = () => {
     fields.forEach(

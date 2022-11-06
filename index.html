@@ -10,8 +10,21 @@
 </head>
 <body>
     <header><a href="" class="head-link">Tic Tac Toe</a></header>
-    <div class="main-wrapper">
-        <div class="status-message">X player turn</div>
+    <div class="menu">
+        <div class="players">
+            <div class="player player-1">
+                <label for="player-1">First player name</label>
+                <input type="text" id="player-1">
+            </div>
+            <div class="player player-2">
+                <label for="player-2">Second player name</label>
+                <input type="text" id="player-2">
+            </div>
+        </div>
+        <button type="button" class="start-button">Start</button>
+    </div>
+    <div class="main-wrapper disabled">
+        <div class="status-message"></div>
         <div class="board">
             <div class="field not-used" id="1"></div>
             <div class="field not-used" id="2"></div>
